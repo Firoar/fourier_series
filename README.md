@@ -1,5 +1,3 @@
-
-
 # 🎨 Fourier Series Drawing Machine
 
 ## 📌 Overview
@@ -9,10 +7,14 @@ An input path is converted into a sequence of points, transformed into Fourier c
 
 ---
 
+## 🌐 Live Site
+
+Try it here: [drawingmachine.iamchiranjivi.in](https://drawingmachine.iamchiranjivi.in/)
+
+---
+
 ## 🎥 Demo
 
 [Rabbit-Picture.webm](https://github.com/user-attachments/assets/b801807b-5c0c-4366-ba14-e62689f906f2)
 
-
 https://github.com/user-attachments/assets/c7ed8250-f433-4dc6-8362-fce8b3470133
-
