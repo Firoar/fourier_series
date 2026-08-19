@@ -5,18 +5,37 @@
     <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- <title>🥳 Happy Birthday 🥳</title> -->
-    <title>Drawing machine</title>
+    <title>Drawing Machine</title>
 
     <link rel="stylesheet" href="./src/style.css" />
   </head>
   <body>
     <div id="root">
+      <h1 class="app-title">Drawing Machine</h1>
       <!-- <div class="timer-div">
         <div class="time minutes"></div>
         <div class="om">:</div>
         <div class="time seconds"></div>
       </div> -->
-      <canvas></canvas>
+      <div class="upload-area" id="upload-area">
+        <input type="file" id="svg-input" accept=".svg" class="file-input" />
+        <span class="upload-label">📂 Drop an SVG here or click to upload</span>
+      </div>
+      <div class="presets" id="presets">
+        <span class="presets-label">or try a preset:</span>
+        <button class="btn-bro btn-preset" data-file="old-lady.json">👵 Old Lady</button>
+        <button class="btn-bro btn-preset" data-file="rabbit.json">🐰 Rabbit</button>
+        <button class="btn-bro btn-preset" data-file="mouse.json">🐭 Mouse</button>
+      </div>
+      <div class="loading hidden" id="loading">
+        <div class="spinner"></div>
+        <span class="loading-text">Processing vectors…</span>
+      </div>
+      <canvas class="hidden" id="canvas"></canvas>
+      <div class="controls hidden" id="controls">
+        <button class="btn-bro btn-1" id="btn-new">➕ New Image</button>
+        <button class="btn-bro btn-2" id="btn-download">⬇️ Download</button>
+      </div>
       <!-- <div class="slideshow-container">
         <span class="arrow-div left-arrow" role="button" tabindex="0">
           <img src="./left.png" alt="left" />
