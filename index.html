@@ -11,11 +11,6 @@
   <body>
     <div id="root">
       <h1 class="app-title">Drawing Machine</h1>
-      <!-- <div class="timer-div">
-        <div class="time minutes"></div>
-        <div class="om">:</div>
-        <div class="time seconds"></div>
-      </div> -->
       <div class="upload-area" id="upload-area">
         <input type="file" id="svg-input" accept=".svg" class="file-input" />
         <span class="upload-label">📂 Drop an SVG here or click to upload</span>
@@ -37,6 +32,17 @@
         <span class="loading-text">Processing vectors…</span>
       </div>
       <canvas class="hidden" id="canvas"></canvas>
+      <div class="draw-controls hidden" id="draw-controls">
+        <div class="progress-wrap">
+          <div class="progress-bar" id="progress-bar"></div>
+          <span class="progress-label" id="progress-label">0%</span>
+        </div>
+        <div class="speed-control">
+          <label class="speed-label" for="speed-slider">🐢 Speed</label>
+          <input type="range" id="speed-slider" min="0" max="4" value="0" step="1" class="speed-slider" />
+          <span class="speed-value" id="speed-value">1×</span>
+        </div>
+      </div>
       <div class="controls hidden" id="controls">
         <button class="btn-bro btn-1" id="btn-new">➕ New Image</button>
         <button class="btn-bro btn-2" id="btn-download">⬇️ Download</button>

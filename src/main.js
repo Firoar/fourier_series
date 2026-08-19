@@ -11,6 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnDownload = document.getElementById("btn-download");
   const presets = document.getElementById("presets");
   const loading = document.getElementById("loading");
+  const drawControls = document.getElementById("draw-controls");
+  const progressBar = document.getElementById("progress-bar");
+  const progressLabel = document.getElementById("progress-label");
+  const speedSlider = document.getElementById("speed-slider");
+  const speedValue = document.getElementById("speed-value");
+  const SPEED_STEPS = [1, 2, 4, 8, 16];
   const WIDTH = 1000;
   const HEIGHT = 700;
   const xCircleX = 150;
@@ -108,10 +114,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const resetToUpload = () => {
     canvas.classList.add("hidden");
     controls.classList.add("hidden");
+    drawControls.classList.add("hidden");
     uploadArea.classList.remove("hidden");
     presets.classList.remove("hidden");
     svgInput.value = ""; // allow re-uploading the same file
   };
+
+  // ── Speed slider events ─────────────────────────────────────
+  speedSlider.addEventListener("input", () => {
+    speedValue.textContent = SPEED_STEPS[speedSlider.value] + "×";
+  });
 
   // ── Show loading / hide loading ──────────────────────────────
   const showLoading = () => loading.classList.remove("hidden");
@@ -137,13 +149,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ── Main animation ───────────────────────────────────────────
   const startAnimation = (rectanglePoints) => {
-    const start = Date.now();
-
-    // Hide upload + presets, show canvas
+    // Hide upload + presets, show canvas + progress bar
     uploadArea.classList.add("hidden");
     presets.classList.add("hidden");
     canvas.classList.remove("hidden");
     controls.classList.add("hidden"); // keep hidden during drawing
+    drawControls.classList.remove("hidden");
+    speedSlider.parentElement.classList.remove("hidden");
+    progressBar.style.width = "0%";
+    progressLabel.textContent = "0%";
+    speedSlider.value = 0;
+    speedValue.textContent = "1×";
 
     console.log(rectanglePoints);
     const correctCoordinates = [];
@@ -203,18 +219,24 @@ document.addEventListener("DOMContentLoaded", () => {
       for (let element of trace) {
         drawPoint(c, element.x, element.y, "purple");
       }
-      TIME += 1;
+
+      const speed = SPEED_STEPS[speedSlider.value];
+      TIME += speed;
+
+      // Update progress bar
+      const pct = Math.min(100, Math.round((TIME / N) * 100));
+      progressBar.style.width = pct + "%";
+      progressLabel.textContent = pct + "%";
 
       if (TIME >= N) {
-        const end = Date.now();
-        const diff = end - start;
-        console.log(Math.floor(diff / 60000), Math.floor((diff % 60000) / 1000));
         STOP = true;
         clearScreen(c);
         for (let element of trace) {
           drawPoint(c, element.x, element.y, "purple");
         }
-        // Show post-drawing controls
+        progressBar.style.width = "100%";
+        progressLabel.textContent = "Done!";
+        speedSlider.parentElement.classList.add("hidden");
         controls.classList.remove("hidden");
       }
     };
